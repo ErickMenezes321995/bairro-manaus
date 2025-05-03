@@ -4,7 +4,7 @@ import Noticia from "../../Components/G1news";
 import Importantes from "../../Components/Importantes";
 import Comercio from "../../Components/Comercios";
 import CarroselComponent from '../../Components/Carrosel';
-import Marketing from "../../Components/Marketing";
+
 
 
 function Home() {
