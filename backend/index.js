@@ -3,7 +3,7 @@ const cors = require('cors');
 const getNoticias = require('./scraper');
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 
@@ -17,3 +17,4 @@ app.get('/api/noticias', async (req, res) => {
 });
 
 app.listen(PORT, () => console.log(`Servidor rodando em http://localhost:${PORT}`));
+
