@@ -31,7 +31,7 @@ const CarouselComponent = () => {
               color: theme.palette.common.white,
             }}
           >
-            <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+            <Typography variant="h4" sx={{ color:'black', fontWeight: 'bold' }}>
               Bem-vindo ao Bairro
             </Typography>
             <Typography variant="h6">
@@ -53,7 +53,7 @@ const CarouselComponent = () => {
               color: theme.palette.common.white,
             }}
           >
-            <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+            <Typography variant="h4" sx={{ color:'black', fontWeight: 'bold' }}>
               Eventos Locais
             </Typography>
             <Typography variant="h6">
@@ -75,7 +75,7 @@ const CarouselComponent = () => {
               color: theme.palette.common.white,
             }}
           >
-            <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+            <Typography variant="h4" sx={{ color:'black', fontWeight: 'bold' }}>
               Participe!
             </Typography>
             <Typography variant="h6">

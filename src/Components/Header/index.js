@@ -32,7 +32,7 @@ const Header = () => {
             <Button color="inherit" component={Link} to="/">Home</Button>
             <Button color="inherit" component={Link} to="/contato">Contatos do Bairro</Button>
             <Button color="inherit" component={Link} to="/noticias">Notícias</Button>
-            <Button color="inherit" component={Link} to="/comercios">Comercios Locais</Button>
+            <Button color="inherit" component={Link} to="/Mercadao">Comercios</Button>
             <Button color="inherit" component={Link} to="/sobre">Sobre</Button>
             <Button color="inherit" component={Link} to="/associe-se">Associe-se</Button>
             <Button color="inherit" component={Link} to="/reunioes">Reuniões</Button>
@@ -65,7 +65,7 @@ const Header = () => {
             <MenuItem onClick={handleMenuClose} component={Link} to="/">Home</MenuItem>
             <MenuItem onClick={handleMenuClose} component={Link} to="/contato">Contatos do Bairro</MenuItem>
             <MenuItem onClick={handleMenuClose} component={Link} to="/noticias">Notícias</MenuItem>
-            <MenuItem onClick={handleMenuClose} component={Link} to="/comercios">Comercios Locais</MenuItem>
+            <MenuItem onClick={handleMenuClose} component={Link} to="/mercadao">Comercios</MenuItem>
             <MenuItem onClick={handleMenuClose} component={Link} to="/sobre">Sobre</MenuItem>
             <MenuItem onClick={handleMenuClose} component={Link} to="/associe-se">Associe-se</MenuItem>
             <MenuItem onClick={handleMenuClose} component={Link} to="/reunioes">Reuniões</MenuItem>

@@ -1,86 +1,141 @@
+import React from 'react';
+import { Box, Typography, Divider, Grid } from '@mui/material';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
+import BuildIcon from '@mui/icons-material/Build';
+import WaterDropIcon from '@mui/icons-material/WaterDrop';
+import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
+import SchoolIcon from '@mui/icons-material/School';
+import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
+import StorefrontIcon from '@mui/icons-material/Storefront';
+import CelebrationIcon from '@mui/icons-material/Celebration';
 
-import React from "react";
-import './Sobre.css';
+function ColoniaSantoAntonio() {
+  return (
+    <Box sx={{ p: 4, maxWidth: '1000px', mx: 'auto' }}>
+      <Typography variant="h4" gutterBottom fontWeight="bold">
+        Bairro Colônia Santo Antônio – História, Realidade e Desafios
+      </Typography>
+      <Divider sx={{ mb: 3 }} />
 
+      {/* Localização e População */}
+      <Grid container spacing={2} alignItems="center" sx={{ mb: 2 }}>
+        <Grid item>
+          <LocationOnIcon color="primary" />
+        </Grid>
+        <Grid item xs>
+          <Typography variant="h6">Localização e População</Typography>
+          <Typography>
+            Localizado na Zona Norte de Manaus, com população estimada de 10.303 habitantes. Principal via: Avenida Francisco Queiroz.
+          </Typography>
+        </Grid>
+      </Grid>
 
+      {/* Origem e Formação */}
+      <Grid container spacing={2} alignItems="center" sx={{ mb: 2 }}>
+        <Grid item>
+          <HistoryEduIcon color="primary" />
+        </Grid>
+        <Grid item xs>
+          <Typography variant="h6">Origem e Formação</Typography>
+          <Typography>
+            Fundado por migrantes, iniciou-se como colônia agrícola. Oficializado em 1983, nomeado em homenagem à igreja de Santo Antônio (1979).
+          </Typography>
+        </Grid>
+      </Grid>
 
+      {/* Infraestrutura */}
+      <Grid container spacing={2} alignItems="center" sx={{ mb: 2 }}>
+        <Grid item>
+          <BuildIcon color="primary" />
+        </Grid>
+        <Grid item xs>
+          <Typography variant="h6">Infraestrutura</Typography>
+          <Typography>
+            Urbanização tardia, com energia elétrica só em 1986 e asfalto em 2010. Coleta de lixo diária, porém falta áreas de lazer e centros culturais.
+          </Typography>
+        </Grid>
+      </Grid>
 
+      {/* Água */}
+      <Grid container spacing={2} alignItems="center" sx={{ mb: 2 }}>
+        <Grid item>
+          <WaterDropIcon color="primary" />
+        </Grid>
+        <Grid item xs>
+          <Typography variant="h6">Abastecimento de Água</Typography>
+          <Typography>
+            Serviço irregular; moradores recorrem a poços artesianos. Falta d’água ainda é um problema recorrente.
+          </Typography>
+        </Grid>
+      </Grid>
 
-function Sobre(){
-    return(
+      {/* Transporte */}
+      <Grid container spacing={2} alignItems="center" sx={{ mb: 2 }}>
+        <Grid item>
+          <DirectionsBusIcon color="primary" />
+        </Grid>
+        <Grid item xs>
+          <Typography variant="h6">Transporte Público</Typography>
+          <Typography>
+            Linhas 303, 314 e 454 atendem o bairro. Acesso à Max Teixeira facilita conexões. Finais de semana têm maior dificuldade.
+          </Typography>
+        </Grid>
+      </Grid>
 
-        <div className="historia">
+      {/* Educação */}
+      <Grid container spacing={2} alignItems="center" sx={{ mb: 2 }}>
+        <Grid item>
+          <SchoolIcon color="primary" />
+        </Grid>
+        <Grid item xs>
+          <Typography variant="h6">Educação</Typography>
+          <Typography>
+            Há apenas uma escola municipal e uma particular. Não há escolas estaduais, obrigando alunos a estudar em bairros vizinhos.
+          </Typography>
+        </Grid>
+      </Grid>
 
-    <h1><strong>Nossa História, Nossa Luta</strong></h1>
-                <hr/>
+      {/* Saúde */}
+      <Grid container spacing={2} alignItems="center" sx={{ mb: 2 }}>
+        <Grid item>
+          <LocalHospitalIcon color="primary" />
+        </Grid>
+        <Grid item xs>
+          <Typography variant="h6">Saúde</Typography>
+          <Typography>
+            O bairro tem uma unidade do programa Médico da Família. Moradores dependem de centros de saúde na Cidade Nova e Monte das Oliveiras.
+          </Typography>
+        </Grid>
+      </Grid>
 
-<p>O <strong>bairro José Bonifácio</strong>, 
-  situado na zona norte de Manaus, 
-  próximo ao Novo Israel, possui uma 
-  história marcada por desafios e conquistas
-   da comunidade local.</p>
+      {/* Comércio */}
+      <Grid container spacing={2} alignItems="center" sx={{ mb: 2 }}>
+        <Grid item>
+          <StorefrontIcon color="primary" />
+        </Grid>
+        <Grid item xs>
+          <Typography variant="h6">Comércio e Economia</Typography>
+          <Typography>
+            Comércio local ativo, mas dependente da Cidade Nova. Avenida Francisco Queiroz concentra padarias, mercados, oficinas e lojas diversas.
+          </Typography>
+        </Grid>
+      </Grid>
 
-<h3>Formação e Regularização</h3>
-<p>O bairro José Bonifácio começou a
-   ser formado em 1998, quando famílias
-       passaram a ocupar a área.
-    Em 1999, a Prefeitura de Manaus iniciou
-     ações para regularizar a ocupação. 
-     Em 2003, a comunidade foi reconhecida
-      como bairro, mas perdeu essa designação
-       em 2004, sendo incorporada ao bairro
-        Cidade Nova. Em 2005, foi anexada ao 
-        bairro Monte das Oliveiras e, finalmente,
-         em 2009, passou a integrar definitivamente 
-         o bairro Nova Cidade, devido à sua localização
-          cercada por este bairro</p>
-
-          <h3>🛠️ Infraestrutura e Urbanização</h3>
-          <p>A comunidade enfrentou por anos a falta
-             de infraestrutura básica. Em 2017, 
-             a Prefeitura de Manaus iniciou obras 
-             de macrodrenagem na área, implantando 
-             uma rede de drenagem profunda com mais 
-             de 450 metros de extensão, beneficiando
-              ruas como a 31 de Março e Geraldo Nascimento .
-              <br/>
-              Em 2023, foram realizadas obras de pavimentação 
-              e melhorias na rede de drenagem, com a instalação 
-              de tubos maiores para evitar alagamentos. Moradores
-               relataram que, após as obras, as ruas deixaram de alagar
-                durante as chuvas .​​</p>
-
-                <h3>💧 Abastecimento de Água</h3>
-                <p>Após mais de 20 anos sem acesso 
-                  regular à água encanada, a comunidade 
-                  José Bonifácio foi incluída no sistema 
-                  de abastecimento público em 2023.
-                   Além disso, os moradores passaram a 
-                   ser beneficiados com a "Tarifa 10", 
-                   um programa social que oferece descontos 
-                   na conta de água para famílias em situação
-                    de vulnerabilidade .​</p>
-
-                    <h3>🤝 Comunidade e Desenvolvimento</h3>
-                    <p>A história do bairro José Bonifácio é
-                       um exemplo de como a mobilização comunitária
-                        e a persistência podem levar à conquista de
-                         direitos básicos e melhorias na qualidade
-                          de vida. Hoje, o bairro conta com infraestrutura
-                           urbana e serviços essenciais, resultado 
-                           de anos de luta dos seus moradores.​
-
-                          Se desejar, posso fornecer 
-                          informações adicionais sobre aspectos específicos 
-                          do bairro ou indicar fontes para pesquisas mais 
-                          aprofundadas</p>
-
-
-
-</div>
-
-    )
+      {/* Cultura */}
+      <Grid container spacing={2} alignItems="center">
+        <Grid item>
+          <CelebrationIcon color="primary" />
+        </Grid>
+        <Grid item xs>
+          <Typography variant="h6">Cultura e Tradições</Typography>
+          <Typography>
+            Comemorações tradicionais ocorrem no dia 13 de junho, com festa do padroeiro Santo Antônio. Associação de moradores pouco ativa fora do período eleitoral.
+          </Typography>
+        </Grid>
+      </Grid>
+    </Box>
+  );
 }
 
-export default Sobre;
-
+export default ColoniaSantoAntonio;
