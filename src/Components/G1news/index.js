@@ -16,7 +16,7 @@ function Noticia() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/noticias")
+    axios.get('https://bairro-manaus.onrender.com/api/noticias')
       .then((res) => {
         setNoticias(res.data);
         setLoading(false);
