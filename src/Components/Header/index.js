@@ -17,25 +17,24 @@ const Header = () => {
   };
 
   return (
-    <AppBar position="sticky" sx={{ backgroundColor: theme.palette.info.main }}>
+    <AppBar position="sticky" sx={{ backgroundColor: theme.palette.info.main}}>
       <Container maxWidth="lg">
-        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between'}}>
           {/* Logo */}
           <Typography variant="h6" component="div" sx={{ fontWeight: 'bold' }}>
             <Link to="/" style={{ color: theme.palette.common.white, textDecoration: 'none' }}>
-              Jose Bonifacio
+              Colonia S. Antonio
             </Link>
           </Typography>
 
           {/* Menu for desktop */}
           <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
             <Button color="inherit" component={Link} to="/">Home</Button>
-            <Button color="inherit" component={Link} to="/contato">Contatos do Bairro</Button>
-            <Button color="inherit" component={Link} to="/noticias">Notícias</Button>
             <Button color="inherit" component={Link} to="/Mercadao">Comercios</Button>
+            <Button color="inherit" component={Link} to="/contato">Presidência & Comissão</Button>
+            <Button color="inherit" component={Link} to="/serviços">Serviços Locais</Button>
+            <Button color="inherit" component={Link} to="/informações">Notícias</Button>
             <Button color="inherit" component={Link} to="/sobre">Sobre</Button>
-            <Button color="inherit" component={Link} to="/associe-se">Associe-se</Button>
-            <Button color="inherit" component={Link} to="/reunioes">Reuniões</Button>
           </Box>
 
           {/* Hamburger Menu for mobile */}
@@ -63,12 +62,11 @@ const Header = () => {
             }}
           >
             <MenuItem onClick={handleMenuClose} component={Link} to="/">Home</MenuItem>
-            <MenuItem onClick={handleMenuClose} component={Link} to="/contato">Contatos do Bairro</MenuItem>
-            <MenuItem onClick={handleMenuClose} component={Link} to="/noticias">Notícias</MenuItem>
             <MenuItem onClick={handleMenuClose} component={Link} to="/mercadao">Comercios</MenuItem>
+            <MenuItem onClick={handleMenuClose} component={Link} to="/contato">Presidência & Comissão</MenuItem>
+            <MenuItem onClick={handleMenuClose} component={Link} to="/serviços">Serviços Locais</MenuItem>
+            <MenuItem onClick={handleMenuClose} component={Link} to="/informações">Notícias</MenuItem>
             <MenuItem onClick={handleMenuClose} component={Link} to="/sobre">Sobre</MenuItem>
-            <MenuItem onClick={handleMenuClose} component={Link} to="/associe-se">Associe-se</MenuItem>
-            <MenuItem onClick={handleMenuClose} component={Link} to="/reunioes">Reuniões</MenuItem>
           </Menu>
         </Toolbar>
       </Container>

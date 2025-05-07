@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 
-app.get('/api/noticias', async (req, res) => {
+app.get('https://bairro-manaus.onrender.com/api/noticias', async (req, res) => {
   try {
     const noticias = await getNoticias();
     res.json(noticias);

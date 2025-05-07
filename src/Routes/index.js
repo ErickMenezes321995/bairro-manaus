@@ -5,6 +5,8 @@ import Home from '../Pages/Home';
 import Sobre from '../Pages/Sobre';
 import Contato from '../Pages/Contato';
 import Mercadao from '../Pages/Mercadao';
+import Informações from '../Pages/Noticias';
+import Serviços from '../Pages/Serviços';
 import ProducingRoute from '../Components/Produção/indexRoute';
 
 
@@ -14,8 +16,10 @@ function RoutesApp(){
        <Routes>
         <Route path='/' element={  <ProducingRoute ativo={false}> <Home/> </ProducingRoute>}/>
         <Route path='/sobre' element={ <ProducingRoute ativo={false}> <Sobre /> </ProducingRoute> }/>
-        <Route path='/Contato' element={ <ProducingRoute ativo={true}> <Contato/> </ProducingRoute>} />
+        <Route path='/Contato' element={ <ProducingRoute ativo={false}> <Contato/> </ProducingRoute>} />
         <Route path='/Mercadao' element={ <ProducingRoute ativo={false}> <Mercadao/> </ProducingRoute> } />
+        <Route path='/Informações' element={ <ProducingRoute ativo={true}> <Informações/> </ProducingRoute> } />
+        <Route path='/serviços' element={ <ProducingRoute ativo={true}> <Serviços/> </ProducingRoute> } />
        </Routes>
     
     )

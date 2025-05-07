@@ -8,7 +8,7 @@ const CarouselComponent = () => {
   const theme = useTheme();
 
   return (
-    <Box sx={{ maxWidth: '100%', position: 'relative' }}>
+    <Box sx={{ maxWidth: '100%', position: 'relative', padding:'10px' }}>
       <Carousel 
         autoPlay
         infiniteLoop
@@ -31,12 +31,6 @@ const CarouselComponent = () => {
               color: theme.palette.common.white,
             }}
           >
-            <Typography variant="h4" sx={{ color:'black', fontWeight: 'bold' }}>
-              Bem-vindo ao Bairro
-            </Typography>
-            <Typography variant="h6">
-              Notícias e eventos da comunidade
-            </Typography>
           </Box>
         </Box>
 
@@ -53,12 +47,6 @@ const CarouselComponent = () => {
               color: theme.palette.common.white,
             }}
           >
-            <Typography variant="h4" sx={{ color:'black', fontWeight: 'bold' }}>
-              Eventos Locais
-            </Typography>
-            <Typography variant="h6">
-              Fique por dentro do que está rolando
-            </Typography>
           </Box>
         </Box>
 
@@ -75,12 +63,6 @@ const CarouselComponent = () => {
               color: theme.palette.common.white,
             }}
           >
-            <Typography variant="h4" sx={{ color:'black', fontWeight: 'bold' }}>
-              Participe!
-            </Typography>
-            <Typography variant="h6">
-              Entre em contato com a associação do bairro
-            </Typography>
           </Box>
         </Box>
       </Carousel>

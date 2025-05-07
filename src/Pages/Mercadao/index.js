@@ -17,6 +17,7 @@ import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import { Carousel } from 'react-responsive-carousel';
 import { Box, useTheme } from '@mui/material';
 import img from '../../imgs/Seleção De Ofertas Supermercado Banner Amarelo Azul Verde.jpg';
+import Comercio from "../../Components/Comercios";
 import 'react-responsive-carousel/lib/styles/carousel.min.css'; // Estilos do carrossel
 
 function Mercadao(){
@@ -50,6 +51,8 @@ function Mercadao(){
                         }}>
                     Todos os nossos mercados, lanchonetes é distribuidora na palma de sua mão!!
                     </Typography>
+
+                    <Comercio/>
                     </div>
 
                 
