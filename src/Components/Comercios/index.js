@@ -6,7 +6,6 @@ import {
   Grid,
   CardHeader,
   Avatar,
-  IconButton,
   Button,
   Stack
 } from "@mui/material";
@@ -51,14 +50,44 @@ function Comercio() {
   };
 
   return (
-    <div style={{ padding: "2rem", backgroundColor: "#f9fafb", minHeight: "100vh" }}>
-      <Typography variant="h4" align="center" gutterBottom>
+    <div
+      style={{
+        padding: "2rem",
+        backgroundColor: "#f9fafb",
+        minHeight: "100vh",
+      }}
+    >
+      <Typography
+        variant="h4"
+        align="center"
+        gutterBottom
+        sx={{ fontWeight: "bold", mb: 4, fontSize: {
+          xs: '1.3rem',  // para telas pequenas
+          sm: '2rem',
+          md: '2.5rem',
+          lg: '3rem',     // em telas grandes mantém o h3
+        },
+        textAlign: 'center',
+        maxWidth: '900px',
+        margin: '0 auto',
+        px: 2, // padding horizontal responsivo
+       }}
+      >
         🛒 Comércios do Bairro
       </Typography>
+
       <Grid container spacing={3}>
         {mercadinhos.map((mercado, index) => (
           <Grid item xs={12} sm={6} md={4} key={index}>
-            <Card sx={{ borderRadius: 3, boxShadow: 3 }}>
+            <Card
+              sx={{
+                borderRadius: 3,
+                boxShadow: 3,
+                display: "flex",
+                flexDirection: "column",
+                height: "100%",
+              }}
+            >
               <CardHeader
                 avatar={
                   <Avatar sx={{ bgcolor: "#25D366" }}>
@@ -68,7 +97,7 @@ function Comercio() {
                 title={mercado.nome}
                 subheader="Comércio local"
               />
-              <CardContent>
+              <CardContent sx={{ flexGrow: 1 }}>
                 <Typography variant="body2" color="text.secondary" gutterBottom>
                   <PhoneIcon fontSize="small" /> {mercado.numero}
                 </Typography>
@@ -78,13 +107,19 @@ function Comercio() {
                 <Typography variant="body2" color="text.secondary">
                   <LocalShippingIcon fontSize="small" /> {mercado.entrega}
                 </Typography>
-                <Stack mt={2} direction="row" justifyContent="flex-end">
+
+                <Stack
+                  mt={3}
+                  direction={{ xs: "column", sm: "row" }}
+                  spacing={1}
+                  justifyContent="flex-end"
+                >
                   <Button
+                    fullWidth
                     variant="contained"
                     color="success"
-                    size="small"
                     startIcon={<WhatsAppIcon />}
-                    onClick={() => openWhatsApp(mercado.numero)}
+                    onClick={() => openWhatsApp(mercado.numero, mercado.nome)}
                   >
                     WhatsApp
                   </Button>

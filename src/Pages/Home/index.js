@@ -7,10 +7,12 @@ import {
   Button,
   Box,
 } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import Noticia from "../../Components/G1news";
-import Importantes from "../../Components/Importantes";
 import Comercio from "../../Components/Comercios";
 import CarroselComponent from "../../Components/Carrosel";
+import Importantes from '../../Components/Importantes';
 import '../Home/Home.css';
 
 function Home() {
@@ -28,6 +30,9 @@ function Home() {
     }
   };
 
+  const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up("md")); // md = 900px+
+
   return (
     <Box sx={{ bgcolor: "#f5f5f5", minHeight: "100vh" }}>
 
@@ -41,8 +46,20 @@ function Home() {
             <div className="todos">
               <div className="primeira">
                 {/* Formulário para tirar dúvidas */}
-                <Typography variant="h5" gutterBottom>
-                  Tire suas dúvidas com a equipe da comunidade
+                <Typography variant="h5" gutterBottom sx={{
+                  background:'white',
+                  fontSize: {
+                    xs: '1.3rem',  // para telas pequenas
+                    sm: '2rem',
+                    md: '2.5rem',
+                    lg: '3rem',     // em telas grandes mantém o h3
+                  },
+                  textAlign: 'center',
+                  maxWidth: '900px',
+                  margin: '0 auto',
+                  px: 2, // padding horizontal responsivo
+                }}>
+                Tire suas dúvidas com a equipe da comunidade!! 
                 </Typography>
                 <TextField
                   fullWidth
@@ -71,10 +88,11 @@ function Home() {
                   <Comercio />
                 </div>
 
-                {/* Seção de informações importantes */}
+                {isDesktop && (
                 <div style={{ marginTop: "20px" }}>
                   <Importantes />
                 </div>
+                  )}
               </div>
 
               <div className="segunda">
