@@ -190,7 +190,7 @@ function Comercio() {
           px: 2,
         }}
       >
-        🏘️ Guia de Comércios e Serviços da Colônia Santo Antônio
+        🏘️ Guia de Comércios e Serviços da Colônia Santo Antônio!
       </Typography>
 
       {/* Input de pesquisa único para todas as categorias */}
