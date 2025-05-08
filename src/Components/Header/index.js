@@ -23,7 +23,7 @@ const Header = () => {
           {/* Logo */}
           <Typography variant="h6" component="div" sx={{ fontWeight: 'bold' }}>
             <Link to="/" style={{ color: theme.palette.common.white, textDecoration: 'none' }}>
-              Novo Israel
+              Colonia Santo Antonio
             </Link>
           </Typography>
 
