@@ -92,6 +92,7 @@ function Comercio() {
 
   const renderComercios = (titulo, lista) => (
     <>
+       {titulo && (
       <Typography
         variant="h5"
         sx={{
@@ -103,19 +104,21 @@ function Comercio() {
       >
         {titulo}
       </Typography>
+    )}
 
       <Grid container spacing={3} justifyContent="center">
         {lista.map((item, index) => (
           <Grid item xs={12} sm={6} md={4} key={index} sx={{ display: 'flex', justifyContent: 'center' }}>
-            <Card
+           <Card
               sx={{
+                width: 300,           // Largura fixa
+                height: 250,          // Altura fixa
                 borderRadius: 3,
                 boxShadow: 3,
                 display: "flex",
                 flexDirection: "column",
-                height: "100%",
-                width: "100%",
-                maxWidth: 350
+                justifyContent: "space-between", // distribui melhor os espaços
+                p: 1,                  // padding interno opcional
               }}
             >
               <CardHeader
@@ -156,6 +159,7 @@ function Comercio() {
                 </Stack>
               </CardContent>
             </Card>
+
           </Grid>
         ))}
       </Grid>
@@ -180,10 +184,10 @@ function Comercio() {
           fontWeight: "bold",
           mb: 4,
           fontSize: {
-            xs: "1.5rem",
+            xs: "1.3rem",
             sm: "2rem",
             md: "2.5rem",
-            lg: "3rem",
+            lg: "2.5rem",
           },
           maxWidth: "900px",
           margin: "0 auto",
@@ -194,7 +198,7 @@ function Comercio() {
       </Typography>
 
       {/* Input de pesquisa único para todas as categorias */}
-      <Stack direction="row" justifyContent="center" mb={4} px={{ xs: 2, sm: 0 }}>
+      <Stack direction="row" justifyContent="center" mb={4} px={{ xs: 2, sm: 0 }} sx={{marginTop:"8px"}}>
         <TextField
           label="Buscar por nome"
           variant="outlined"
@@ -204,13 +208,19 @@ function Comercio() {
         />
       </Stack>
 
-      {/* Renderização das categorias */}
-      {renderComercios("🛒 Mercadinhos", comerciosFiltrados.filter(item => mercadinhos.includes(item)))}
-      {renderComercios("🍔 Lanchonetes", comerciosFiltrados.filter(item => lanchonetes.includes(item)))}
-      {renderComercios("💊 Farmácias", comerciosFiltrados.filter(item => farmacias.includes(item)))}
-      {renderComercios("✂️ Salões de Beleza", comerciosFiltrados.filter(item => saloes.includes(item)))}
-      {renderComercios("⛪ Igrejas", comerciosFiltrados.filter(item => igrejas.includes(item)))}
-      {renderComercios("🏫 Escolas", comerciosFiltrados.filter(item => escolas.includes(item)))}
+     {/* Se há busca, mostra resultados sem título */}
+      {Busca.trim()
+        ? renderComercios("", comerciosFiltrados)
+        : (
+          <>
+            {renderComercios("🛒 Mercadinhos", mercadinhos)}
+            {renderComercios("🍔 Lanchonetes", lanchonetes)}
+            {renderComercios("💊 Farmácias", farmacias)}
+            {renderComercios("✂️ Salões de Beleza", saloes)}
+            {renderComercios("⛪ Igrejas", igrejas)}
+            {renderComercios("🏫 Escolas", escolas)}
+          </>
+        )}
     </div>
   );
 }
