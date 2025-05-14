@@ -13,9 +13,24 @@ import CelebrationIcon from '@mui/icons-material/Celebration';
 function ColoniaSantoAntonio() {
   return (
     <Box sx={{ p: 4, maxWidth: '1000px', mx: 'auto' }}>
-      <Typography variant="h4" gutterBottom fontWeight="bold">
+     <Typography
+        variant="h4"
+        gutterBottom
+        fontWeight="bold"
+        sx={{
+          fontSize: {
+            xs: "1.5rem",  // em celulares
+            sm: "2rem",    // tablets pequenos
+            md: "2.5rem",  // tablets grandes ou desktops
+            lg: "3rem"     // telas maiores
+          },
+          textAlign: "center",
+          px: 2,           // padding horizontal para evitar encostar nas bordas em telas pequenas
+        }}
+      >
         Bairro Colônia Santo Antônio – História, Realidade e Desafios
       </Typography>
+
       <Divider sx={{ mb: 3 }} />
 
       {/* Localização e População */}
