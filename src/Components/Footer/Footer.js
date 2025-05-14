@@ -17,23 +17,26 @@ const Footer = () => {
     >
       <Divider sx={{ mb: 2 }} />
       <Typography variant="body2" sx={{ mb: 1 }}>
-        &copy; {new Date().getFullYear()} MeuBairro Manaus. Todos os direitos reservados.
+        &copy; {new Date().getFullYear()} ErickMenezes. Todos os direitos reservados.
       </Typography>
       <Box>
         <Link 
-          href="https://www.instagram.com/seubairro" 
+          href="#https://www.instagram.com/seubairro" 
           color="inherit" 
           sx={{ mr: 2, textDecoration: 'none' }}
         >
           Instagram
         </Link>
-        <Link 
-          href="mailto:contato@meubairro.com" 
-          color="inherit" 
+        <Link
+          href="https://wa.me/5592993847070?text=Olá, gostaria de informações sobre o site!"
+          target="_blank"
+          rel="noopener noreferrer"
+          color="inherit"
           sx={{ textDecoration: 'none' }}
         >
-          Contato
+          WhatsApp
         </Link>
+
       </Box>
     </Box>
   );
