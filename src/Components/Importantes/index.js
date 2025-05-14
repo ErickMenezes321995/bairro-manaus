@@ -21,7 +21,7 @@ function Importantes() {
     {
       img: imege,
       Cargo: 'Presidente do Bairro',
-      nome: 'Sr(a) Vlademir Putin',
+      nome: 'Sr(a) Waldir',
       Missão: 'Nosso compromisso com o bairro!',
       numero: '5511999999999'
     }
