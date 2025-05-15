@@ -6,8 +6,8 @@ import {
   TextField,
   Button,
   Box,
-  Snackbar,
-  Alert
+  Alert,
+  Fade
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles"; 
 import useMediaQuery from "@mui/material/useMediaQuery"; 
@@ -18,30 +18,53 @@ import "../Home/Home.css";
 import MarkVip from "../../Components/MarkVip"; 
 import Calendario from "../../Components/Calendario"; 
 
-
 function Home() { 
   const [email, setEmail] = useState(""); 
   const [mensagem, setMensagem] = useState(""); 
-
   const [snackbarOpen, setSnackbarOpen] = useState(false); 
   const [snackbarMessage, setSnackbarMessage] = useState(""); 
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
-   // Adicionando o estado para o nome
 
+  // Lista de palavras proibidas - adicione as que quiser bloquear
+  const palavrasProibidas = [
+    "fdp",
+    "crlh",
+    "filha da puta",
+    "caralho",
+    "Porra",
+    // Exemplo: "burro", "idiota", etc.
+  ];
 
   const handleSubmit = () => { 
     if (email.trim() === "" || mensagem.trim() === "") { 
       setSnackbarMessage("Por favor, preencha todos os campos."); 
-      setSnackbarSeverity("error"); // vermelho
+      setSnackbarSeverity("error"); 
       setSnackbarOpen(true); 
+      setTimeout(() => setSnackbarOpen(false), 7000); 
       return; 
-    } else { 
-      setSnackbarMessage(`Sua mensagem foi enviada! Em breve entraremos em contato com ${email}.`); 
-      setSnackbarSeverity("success"); // verde
-      setSnackbarOpen(true); 
-      setEmail(""); 
-      setMensagem(""); 
     } 
+
+    // Verifica se mensagem contém palavra proibida
+    const mensagemMinuscula = mensagem.toLowerCase();
+    const contemPalavraProibida = palavrasProibidas.some(palavra => 
+      mensagemMinuscula.includes(palavra)
+    );
+
+    if (contemPalavraProibida) {
+      setSnackbarMessage("Sua mensagem contém palavras proibidas. Por favor, revise.");
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
+      setTimeout(() => setSnackbarOpen(false), 7000);
+      return;
+    }
+
+    // Se passou na verificação, envia normalmente
+    setSnackbarMessage(`Sua mensagem foi enviada! Em breve entraremos em contato com ${email}.`); 
+    setSnackbarSeverity("success"); 
+    setSnackbarOpen(true); 
+    setTimeout(() => setSnackbarOpen(false), 7000); 
+    setEmail(""); 
+    setMensagem(""); 
   };
 
   const theme = useTheme(); 
@@ -50,19 +73,17 @@ function Home() {
   return ( 
     <Box sx={{ bgcolor: "#f5f5f5", minHeight: "100vh" }}> 
       <CarroselComponent /> 
-  
-      <Container maxWidth="lg" sx={{ mt: 4, marginTop:"-5px" }}> 
+
+      <Container maxWidth="lg" sx={{ mt: 4, marginTop: "-5px" }}> 
         <Grid container spacing={4}> 
           <Grid item xs={12} md={6}> 
             <div className="todos"> 
               <div className="primeira"> 
                 <Container maxWidth="md" sx={{ mt: 4 }}>
-                   <Typography
+                  <Typography
                     variant="h5"
                     gutterBottom
-                    sx={{
-                      fontSize: { xs: "1.5rem", sm: "2rem" }, // tamanho de fonte responsivo
-                    }}
+                    sx={{ fontSize: { xs: "1.5rem", sm: "2rem" } }}
                   >
                     Bem-vindo à Comunidade Manaus Conectada!
                   </Typography>
@@ -71,23 +92,37 @@ function Home() {
                     variant="body1"
                     sx={{
                       mb: { xs: 2, sm: 4 },
-                      fontSize: { xs: "1rem", sm: "1.125rem" }, // texto ajustado para leitura confortável
+                      fontSize: { xs: "1rem", sm: "1.125rem" },
                       lineHeight: 1.6,
                     }}
                   >
                     Conecte-se com a comunidade, compartilhe notícias e aproveite as promoções dos mercados locais!
                   </Typography>
 
-                    <Typography
+                  <Typography
                     variant="h5"
                     gutterBottom
-                    sx={{
-                      fontSize: { xs: "1.5rem", sm: "2rem" }, // tamanho de fonte responsivo
-                    }}
+                    sx={{ fontSize: { xs: "1.5rem", sm: "2rem" } }}
                   >
                     Compartilhe aqui!!
                   </Typography>
+
+                  {/* ALERTA COM FADE ACIMA DOS INPUTS */}
+                  <Fade in={snackbarOpen} timeout={{ enter: 500, exit: 500 }}>
+                    <Box sx={{ mb: 2 }}>
+                      {snackbarOpen && (
+                        <Alert
+                          severity={snackbarSeverity}
+                          onClose={() => setSnackbarOpen(false)}
+                        >
+                          {snackbarMessage}
+                        </Alert>
+                      )}
+                    </Box>
+                  </Fade>
+
                 </Container>
+
                 <TextField 
                   fullWidth 
                   label="Seu e-mail ou whatssap" 
@@ -96,6 +131,7 @@ function Home() {
                   onChange={(e) => setEmail(e.target.value)} 
                   sx={{ mb: 2 }} 
                 />
+
                 <TextField 
                   fullWidth 
                   multiline 
@@ -106,6 +142,7 @@ function Home() {
                   onChange={(e) => setMensagem(e.target.value)} 
                   sx={{ mb: 2 }} 
                 />
+
                 <Button fullWidth variant="contained" onClick={handleSubmit}>
                   Enviar dúvida
                 </Button>
@@ -135,26 +172,13 @@ function Home() {
           </Grid>
         </Grid>
       </Container>
-
-      {/* Snackbar para mensagem de sucesso ou erro */}
-      <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={7000} // Fecha automaticamente após 6 segundos
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }} // Centraliza a mensagem
-        onClose={() => setSnackbarOpen(false)}
-      >
-        <Alert
-          onClose={() => setSnackbarOpen(false)}
-          severity={snackbarSeverity}
-          sx={{ width: "100%" }}
-        >
-          {snackbarMessage}
-        </Alert>
-      </Snackbar>
     </Box>
   );
 }
 
 export default Home;
+
+
+
 
 
