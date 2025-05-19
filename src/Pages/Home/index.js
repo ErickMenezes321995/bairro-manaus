@@ -1,4 +1,4 @@
-import React, { useState } from "react"; 
+import React, { useState, useEffect } from "react"; 
 import {
   Container,
   Grid,
@@ -9,44 +9,64 @@ import {
   Alert,
   Fade
 } from "@mui/material";
-import { useTheme } from "@mui/material/styles"; 
-import useMediaQuery from "@mui/material/useMediaQuery"; 
-import Noticia from "../../Components/G1news"; 
-import CarroselComponent from "../../Components/Carrosel"; 
-import Importantes from "../../Components/Importantes"; 
-import "../Home/Home.css"; 
-import MarkVip from "../../Components/MarkVip"; 
-import Calendario from "../../Components/Calendario"; 
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import Noticia from "../../Components/G1news";
+import CarroselComponent from "../../Components/Carrosel";
+import Importantes from "../../Components/Importantes";
+import "../Home/Home.css";
+import MarkVip from "../../Components/MarkVip";
+import Calendario from "../../Components/Calendario";
 
-function Home() { 
-  const [email, setEmail] = useState(""); 
-  const [mensagem, setMensagem] = useState(""); 
-  const [snackbarOpen, setSnackbarOpen] = useState(false); 
-  const [snackbarMessage, setSnackbarMessage] = useState(""); 
+function Home() {
+  const [email, setEmail] = useState("");
+  const [mensagem, setMensagem] = useState("");
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+  const [nomeUsuario, setNomeUsuario] = useState(localStorage.getItem('userFirstName') || '');
 
-  // Lista de palavras proibidas - adicione as que quiser bloquear
+  useEffect(() => {
+    setNomeUsuario(localStorage.getItem('userFirstName') || '');
+    const handleUserNameUpdated = (event) => {
+      console.log('Evento recebido na Home com nome:', event.detail);
+      setNomeUsuario(event.detail || '');
+    };
+
+    window.addEventListener('userNameUpdated', handleUserNameUpdated);
+
+    return () => {
+      window.removeEventListener('userNameUpdated', handleUserNameUpdated);
+    };
+  }, []);
+
+  
+  useEffect(() => {
+    console.log('nomeUsuario mudou para:', nomeUsuario);
+  }, [nomeUsuario]);
+
   const palavrasProibidas = [
     "fdp",
     "crlh",
     "filha da puta",
     "caralho",
     "Porra",
-    // Exemplo: "burro", "idiota", etc.
+    "porra",
+    "gay",
+    "viado",
   ];
 
-  const handleSubmit = () => { 
-    if (email.trim() === "" || mensagem.trim() === "") { 
-      setSnackbarMessage("Por favor, preencha todos os campos."); 
-      setSnackbarSeverity("error"); 
-      setSnackbarOpen(true); 
-      setTimeout(() => setSnackbarOpen(false), 7000); 
-      return; 
-    } 
+  const handleSubmit = () => {
+    if (email.trim() === "" || mensagem.trim() === "") {
+      setSnackbarMessage("Por favor, preencha todos os campos.");
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
+      setTimeout(() => setSnackbarOpen(false), 7000);
+      return;
+    }
 
-    // Verifica se mensagem contém palavra proibida
     const mensagemMinuscula = mensagem.toLowerCase();
-    const contemPalavraProibida = palavrasProibidas.some(palavra => 
+    const contemPalavraProibida = palavrasProibidas.some(palavra =>
       mensagemMinuscula.includes(palavra)
     );
 
@@ -58,35 +78,38 @@ function Home() {
       return;
     }
 
-    // Se passou na verificação, envia normalmente
-    setSnackbarMessage(`Sua mensagem foi enviada! Em breve entraremos em contato com ${email}.`); 
-    setSnackbarSeverity("success"); 
-    setSnackbarOpen(true); 
-    setTimeout(() => setSnackbarOpen(false), 7000); 
-    setEmail(""); 
-    setMensagem(""); 
+    setSnackbarMessage(`Sua mensagem foi enviada! Em breve entraremos em contato com ${email}.`);
+    setSnackbarSeverity("success");
+    setSnackbarOpen(true);
+    setTimeout(() => setSnackbarOpen(false), 7000);
+    setEmail("");
+    setMensagem("");
   };
 
-  const theme = useTheme(); 
+  const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
 
-  return ( 
-    <Box sx={{ bgcolor: "#f5f5f5", minHeight: "100vh" }}> 
-      <CarroselComponent /> 
+  return (
+    <Box sx={{ bgcolor: "#f5f5f5", minHeight: "100vh" }}>
+      <CarroselComponent />
 
-      <Container maxWidth="lg" sx={{ mt: 4, marginTop: "-5px" }}> 
-        <Grid container spacing={4}> 
-          <Grid item xs={12} md={6}> 
-            <div className="todos"> 
-              <div className="primeira"> 
+      <Container maxWidth="lg" sx={{ mt: 4, marginTop: "-5px" }}>
+        <Grid container spacing={4}>
+          <Grid item xs={12} md={6}>
+            <div className="todos">
+              <div className="primeira">
                 <Container maxWidth="md" sx={{ mt: 4 }}>
-                  <Typography
-                    variant="h5"
-                    gutterBottom
-                    sx={{ fontSize: { xs: "1.5rem", sm: "2rem" } }}
-                  >
-                    Bem-vindo à Comunidade Manaus Conectada!
-                  </Typography>
+                  {nomeUsuario && (
+                    <Typography
+                      key={nomeUsuario}  
+                      variant="h5"
+                      gutterBottom
+                      sx={{ fontSize: { xs: "1.5rem", sm: "2rem" } }}
+                    >
+                      Olá, {nomeUsuario}! Bem-vindo à Comunidade Manaus Conectada!
+                    </Typography>
+                  )}
+
 
                   <Typography
                     variant="body1"
@@ -107,7 +130,6 @@ function Home() {
                     Compartilhe aqui!!
                   </Typography>
 
-                  {/* ALERTA COM FADE ACIMA DOS INPUTS */}
                   <Fade in={snackbarOpen} timeout={{ enter: 500, exit: 500 }}>
                     <Box sx={{ mb: 2 }}>
                       {snackbarOpen && (
@@ -120,27 +142,26 @@ function Home() {
                       )}
                     </Box>
                   </Fade>
-
                 </Container>
 
-                <TextField 
-                  fullWidth 
-                  label="Seu e-mail ou whatssap" 
-                  variant="outlined" 
-                  value={email} 
-                  onChange={(e) => setEmail(e.target.value)} 
-                  sx={{ mb: 2 }} 
+                <TextField
+                  fullWidth
+                  label="Seu e-mail ou whatsapp"
+                  variant="outlined"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  sx={{ mb: 2 }}
                 />
 
-                <TextField 
-                  fullWidth 
-                  multiline 
-                  minRows={4} 
-                  label="Sua dúvida" 
-                  variant="outlined" 
-                  value={mensagem} 
-                  onChange={(e) => setMensagem(e.target.value)} 
-                  sx={{ mb: 2 }} 
+                <TextField
+                  fullWidth
+                  multiline
+                  minRows={4}
+                  label="Sua dúvida"
+                  variant="outlined"
+                  value={mensagem}
+                  onChange={(e) => setMensagem(e.target.value)}
+                  sx={{ mb: 2 }}
                 />
 
                 <Button fullWidth variant="contained" onClick={handleSubmit}>
@@ -177,8 +198,3 @@ function Home() {
 }
 
 export default Home;
-
-
-
-
-
