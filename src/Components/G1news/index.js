@@ -19,7 +19,8 @@ function Noticia() {
 
   useEffect(() => {
     axios
-      .get("https://bairro-manaus.onrender.com/api/noticias")
+      //.get("https://bairro-manaus.onrender.com/api/noticias")
+       .get('http://localhost:5000/api/noticias')
       .then((res) => {
         setNoticias(res.data);
         setLoading(false);

@@ -45,9 +45,6 @@ function Mercadao(){
                     <div className="texto">
                     <Comercio/>
                     </div>
-
-                
-                   
                 </div>
     
     )
