@@ -18,10 +18,16 @@ const ModalBoasVindas = () => {
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    // Para testes: sempre mostrar o modal
+    const savedName = localStorage.getItem('userFirstName');
+    if (savedName) {
+      setFirstName(savedName);
+      setSubmitted(true); // já mostra mensagem de boas-vindas
+    }
+
     const timer = setTimeout(() => {
       setOpen(true);
     }, 1000);
+
     return () => clearTimeout(timer);
   }, []);
 
@@ -35,7 +41,6 @@ const ModalBoasVindas = () => {
       localStorage.setItem('userFirstName', firstName);
       setSubmitted(true);
 
-    
       window.dispatchEvent(new CustomEvent('userNameUpdated', { detail: firstName }));
       console.log('Evento disparado com nome:', firstName);
 
@@ -104,7 +109,7 @@ const ModalBoasVindas = () => {
               fontSize: { xs: '1rem', sm: '1.1rem' },
               color: '#555'
             }}>
-              Conecte-se com a comunidade, compartilhe notícias é aproveite as promoções dos mercados locais!
+              Conecte-se com a comunidade, compartilhe notícias e aproveite as promoções dos mercados locais!
             </DialogContentText>
 
             <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
@@ -155,7 +160,7 @@ const ModalBoasVindas = () => {
             py: 4,
             color: '#2e7d32'
           }}>
-            🎉 Bem-vindo, {firstName}! Estamos felizes em ter você com a gente!
+            🎉 Bem-vindo{firstName ? `, ${firstName}` : ''}! Estamos felizes em ter você com a gente!
           </DialogContentText>
         )}
       </DialogContent>
@@ -164,4 +169,5 @@ const ModalBoasVindas = () => {
 };
 
 export default ModalBoasVindas;
+
 

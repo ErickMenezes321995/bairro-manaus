@@ -104,7 +104,7 @@ function Home() {
                       key={nomeUsuario}  
                       variant="h5"
                       gutterBottom
-                      sx={{ fontSize: { xs: "1.5rem", sm: "2rem" } }}
+                      sx={{ fontSize: { xs: "1.3rem", sm: "2rem" }, textAlign:"center"}}
                     >
                       Olá, {nomeUsuario}! Bem-vindo à Comunidade Manaus Conectada!
                     </Typography>
@@ -119,16 +119,11 @@ function Home() {
                       lineHeight: 1.6,
                     }}
                   >
-                    Conecte-se com a comunidade, compartilhe notícias e aproveite as promoções dos mercados locais!
+                   👉 Promoções imperdíveis nos mercados do bairro, notícias,
+                    eventos e informações úteis da comunidade! <br/>
+                    Use o campo abaixo para compartilhar!! 
                   </Typography>
 
-                  <Typography
-                    variant="h5"
-                    gutterBottom
-                    sx={{ fontSize: { xs: "1.5rem", sm: "2rem" } }}
-                  >
-                    Compartilhe aqui!!
-                  </Typography>
 
                   <Fade in={snackbarOpen} timeout={{ enter: 500, exit: 500 }}>
                     <Box sx={{ mb: 2 }}>
