@@ -39,18 +39,6 @@ function MarkVip() {
       horario: "6h00 às 22h00",
       entrega: "Delivery grátis na ZL",
     },
-    {
-      nome: "Lanche do Zé",
-      numero: "+5592991112222",
-      horario: "18h às 23h",
-      entrega: "Entrega por WhatsApp",
-    },
-     {
-      nome: "Farmácia Popular",
-      numero: "+5592992223333",
-      horario: "8h às 20h",
-      entrega: "Entrega gratuita acima de R$50",
-    },
   ]);
 
 
