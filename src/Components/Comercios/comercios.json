@@ -1,0 +1,71 @@
+{
+  "mercadinhos": [
+    {
+      "nome": "Mercadinho Ceará",
+      "numero": "+5592993847070",
+      "horario": "5h30 às 9h00",
+      "entrega": "Entregamos a domicílio",
+      "imagem": "./assets/menu.png",
+      "localizacao": "https://www.google.com/maps?q=-3.101944,-60.025"
+      
+    },
+    {
+      "nome": "Mini Box da Leste",
+      "numero": "+5592991234567",
+      "horario": "6h00 às 22h00",
+      "entrega": "Delivery grátis na ZL",
+      "imagem": "./assets/cardapio.png",
+        "localizacao": "https://www.google.com/maps?q=-3.101944,-60.025"
+    }
+  ],
+  "lanchonetes": [
+    {
+      "nome": "Lanche do Zé",
+      "numero": "+5592991112222",
+      "horario": "18h às 23h",
+      "entrega": "Entrega por WhatsApp",
+      "imagem": "./assets/cardapio.png",
+        "localizacao": "https://www.google.com/maps?q=-3.101944,-60.025"
+    }
+  ],
+  "farmacias": [
+    {
+      "nome": "Farmácia Popular",
+      "numero": "+5592992223333",
+      "horario": "8h às 20h",
+      "entrega": "Entrega gratuita acima de R$50",
+      "imagem": "./assets/cardapio.png",
+        "localizacao": "https://www.google.com/maps?q=-3.101944,-60.025"
+    }
+  ],
+  "saloes": [
+    {
+      "nome": "Salão da Cléo",
+      "numero": "+5592993334444",
+      "horario": "10h às 18h",
+      "entrega": "Horário marcado",
+      "imagem": "./assets/cardapio.png",
+        "localizacao": "https://www.google.com/maps?q=-3.101944,-60.025"
+    }
+  ],
+  "igrejas": [
+    {
+      "nome": "Igreja Batista Santo Antônio",
+      "numero": "+5592994445555",
+      "horario": "Domingo às 19h",
+      "entrega": "Atividades semanais",
+      "imagem": "./assets/cardapio.png",
+        "localizacao": "https://www.google.com/maps?q=-3.101944,-60.025"
+    }
+  ],
+  "escolas": [
+    {
+      "nome": "Escola Estadual J da Silva",
+      "numero": "+5592995556666",
+      "horario": "7h às 17h",
+      "entrega": "Ensino fundamental e médio",
+      "imagem": "./assets/cardapio.png",
+        "localizacao": "https://www.google.com/maps?q=-3.101944,-60.025"
+    }
+  ]
+}

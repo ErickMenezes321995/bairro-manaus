@@ -104,7 +104,7 @@ function Home() {
                       key={nomeUsuario}  
                       variant="h5"
                       gutterBottom
-                      sx={{ fontSize: { xs: "1.3rem", sm: "2rem" }, textAlign:"center"}}
+                      sx={{ fontSize: { xs: "1rem", sm: "2rem" }, textAlign:"center"}}
                     >
                       Olá, {nomeUsuario}! Bem-vindo à Comunidade Manaus Conectada!
                     </Typography>
@@ -117,11 +117,10 @@ function Home() {
                       mb: { xs: 2, sm: 4 },
                       fontSize: { xs: "1rem", sm: "1.125rem" },
                       lineHeight: 1.6,
+                      textAlign:"center"
                     }}
                   >
-                   👉 Promoções imperdíveis nos mercados do bairro, notícias,
-                    eventos e informações úteis da comunidade! <br/>
-                    Use o campo abaixo para compartilhar!! 
+                    Compartilhe aqui!!
                   </Typography>
 
 
@@ -152,7 +151,7 @@ function Home() {
                   fullWidth
                   multiline
                   minRows={4}
-                  label="Sua dúvida"
+                  label="Compartilhe informações..."
                   variant="outlined"
                   value={mensagem}
                   onChange={(e) => setMensagem(e.target.value)}
@@ -160,7 +159,7 @@ function Home() {
                 />
 
                 <Button fullWidth variant="contained" onClick={handleSubmit}>
-                  Enviar dúvida
+                  Enviar
                 </Button>
 
                 <div style={{ marginTop: "20px" }}>
