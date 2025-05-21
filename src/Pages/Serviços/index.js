@@ -196,25 +196,48 @@ function PaginaProfissionais() {
       {/* Área de login e logout */}
       {!usuarioLogado ? (
         <Stack
-          direction={{ xs: "column", sm: "row" }}
-          spacing={2}
+          direction="column"
+          spacing={1}
+          alignItems="center"
           justifyContent="center"
           mb={3}
-          alignItems="center"
+          sx={{
+            maxWidth: 300,
+            mx: "auto",
+            p: 2,
+            borderRadius: 2,
+            backgroundColor: "#f5f5f5",
+            boxShadow: 1,
+          }}
         >
+          <Typography
+            variant="body2"
+            align="center"
+            sx={{ color: "#666", fontStyle: "italic", mb: 1 }}
+          >
+            Área exclusiva para profissionais cadastrados.
+          </Typography>
+
           <TextField
-            label="Senha"
+            placeholder="Digite sua Senha"
             variant="outlined"
             value={loginTelefone}
             onChange={(e) => setLoginTelefone(e.target.value)}
-            sx={{ width: { xs: "100%", sm: 250 } }}
-            placeholder="Digite sua Senha"
             inputProps={{ inputMode: "tel" }}
+            size="small"
+            sx={{
+              width: "100%",
+              '& .MuiOutlinedInput-root': {
+                borderRadius: 2,
+                backgroundColor: '#fff',
+              },
+            }}
           />
+
           <Button
             variant="contained"
             onClick={handleLogin}
-            sx={{ width: { xs: "100%", sm: "auto" }, py: 1.5 }}
+            sx={{ width: "100%", py: 1 }}
           >
             Entrar
           </Button>
