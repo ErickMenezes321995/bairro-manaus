@@ -21,7 +21,7 @@ function Importantes() {
     {
       img: imege,
       Cargo: 'Presidente do Bairro',
-      nome: 'Sr(a) Waldir',
+      nome: 'Sr(a) Jose',
       Missão: 'Nosso compromisso com o bairro!',
       numero: '5511999999999'
     }
@@ -141,9 +141,6 @@ function Importantes() {
               </Card>
             </Grid>
           </Grid>
-
-
-
       <Divider className="divisor" sx={{ my: 4 }} />
 
     </Box>
