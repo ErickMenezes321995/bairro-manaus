@@ -2,7 +2,7 @@
   "mercadinhos": [
     {
       "nome": "Mercadinho Ceará",
-      "numero": "+5592993847070",
+      "numero": "+55929999999",
       "horario": "5h30 às 9h00",
       "entrega": "Entregamos a domicílio",
       "imagem": "./assets/menu.png",
@@ -11,7 +11,7 @@
     },
     {
       "nome": "Mini Box da Leste",
-      "numero": "+5592991234567",
+      "numero": "+55929999999",
       "horario": "6h00 às 22h00",
       "entrega": "Delivery grátis na ZL",
       "imagem": "./assets/cardapio.png",
@@ -21,7 +21,7 @@
   "lanchonetes": [
     {
       "nome": "Lanche do Zé",
-      "numero": "+5592991112222",
+      "numero": "+5592999999",
       "horario": "18h às 23h",
       "entrega": "Entrega por WhatsApp",
       "imagem": "./assets/cardapio.png",
@@ -31,7 +31,7 @@
   "farmacias": [
     {
       "nome": "Farmácia Popular",
-      "numero": "+5592992223333",
+      "numero": "+559299999999",
       "horario": "8h às 20h",
       "entrega": "Entrega gratuita acima de R$50",
       "imagem": "./assets/cardapio.png",
@@ -41,7 +41,7 @@
   "saloes": [
     {
       "nome": "Salão da Cléo",
-      "numero": "+5592993334444",
+      "numero": "+55929999999",
       "horario": "10h às 18h",
       "entrega": "Horário marcado",
       "imagem": "./assets/cardapio.png",
@@ -51,7 +51,7 @@
   "igrejas": [
     {
       "nome": "Igreja Batista Santo Antônio",
-      "numero": "+5592994445555",
+      "numero": "+559299999999",
       "horario": "Domingo às 19h",
       "entrega": "Atividades semanais",
       "imagem": "./assets/cardapio.png",
@@ -61,7 +61,7 @@
   "escolas": [
     {
       "nome": "Escola Estadual J da Silva",
-      "numero": "+5592995556666",
+      "numero": "+559299999999",
       "horario": "7h às 17h",
       "entrega": "Ensino fundamental e médio",
       "imagem": "./assets/cardapio.png",

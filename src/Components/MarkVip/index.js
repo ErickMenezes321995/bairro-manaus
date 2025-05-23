@@ -29,13 +29,13 @@ function MarkVip() {
   const [todos] = useState([
     {
       nome: "Mercadinho Ceará",
-      numero: "+5592993847070",
+      numero: "+559299999999",
       horario: "5h30 às 9h00",
       entrega: "Entregamos a domicílio",
     },
     {
       nome: "Mini Box da Leste",
-      numero: "+5592991234567",
+      numero: "+5592999999999",
       horario: "6h00 às 22h00",
       entrega: "Delivery grátis na ZL",
     },
