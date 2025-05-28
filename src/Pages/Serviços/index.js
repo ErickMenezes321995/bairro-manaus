@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import {
   Card,
   CardContent,
@@ -34,47 +34,8 @@ const statusColors = {
   offline: "gray",
 };
 
-const profissionaisMockInicial = [
-  {
-    id: 1,
-    nome: "João da Silva",
-    servico: "Pedreiro",
-    telefone: "9299999999",
-    localizacao: "https://maps.google.com?q=Bairro+Central",
-    status: "online",
-    foto: "https://i.pravatar.cc/150?img=1",
-  },
-  {
-    id: 2,
-    nome: "Carlos Oliveira",
-    servico: "Carpinteiro",
-    telefone: "929999999",
-    localizacao: "https://maps.google.com?q=Vila+Nova",
-    status: "ocupado",
-    foto: "https://i.pravatar.cc/150?img=2",
-  },
-  {
-    id: 3,
-    nome: "Maria Souza",
-    servico: "Soldadora",
-    telefone: "929999999",
-    localizacao: "https://maps.google.com?q=Jardim+das+Flores",
-    status: "offline",
-    foto: "https://i.pravatar.cc/150?img=3",
-  },
-  {
-    id: 4,
-    nome: "erick saraiva",
-    servico: "programador",
-    telefone: "929999999",
-    localizacao: "https://maps.google.com?q=Jardim+das+Flores",
-    status: "offline",
-    foto: "https://i.pravatar.cc/150?img=3",
-  },
-];
-
 function PaginaProfissionais() {
-  const [profissionais, setProfissionais] = useState(profissionaisMockInicial);
+  const [profissionais, setProfissionais] = useState([]);
   const [busca, setBusca] = useState("");
   const [imagemSelecionada, setImagemSelecionada] = useState(null);
   const [modalAberto, setModalAberto] = useState(false);
@@ -90,6 +51,7 @@ function PaginaProfissionais() {
 
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
 
   // Abrir modal de imagem
   const abrirModalImagem = (imagem) => {
@@ -123,12 +85,31 @@ function PaginaProfissionais() {
     setSnackbarOpen(false);
   };
 
-  // Filtra profissionais pelo nome ou serviço
-  const profissionaisFiltrados = profissionais.filter(
-    (p) =>
-      p.nome.toLowerCase().includes(busca.toLowerCase()) ||
-      p.servico.toLowerCase().includes(busca.toLowerCase())
-  );
+   useEffect(() => {
+    async function carregarProfissionais() {
+      try {
+        const response = await fetch("http://localhost:5000/api/profissionais");
+        if (!response.ok) throw new Error("Erro ao carregar profissionais");
+        const data = await response.json();
+        setProfissionais(data);
+      } catch (error) {
+        console.error(error);
+        // Aqui você pode exibir snackbar ou mensagem de erro, se quiser
+      }
+    }
+    carregarProfissionais();
+  }, []);
+
+  
+  // Filtra profissionais pelo nome ou serviço (ajustado para evitar erros)
+const buscaTrim = busca.trim().toLowerCase();
+
+const profissionaisFiltrados = profissionais.filter((p) => {
+  const nome = p.nome ? p.nome.toLowerCase() : "";
+  const servico = p.servico ? p.servico.toLowerCase() : "";
+  return nome.includes(buscaTrim) || servico.includes(buscaTrim);
+});
+
 
   // Fazer login só com telefone
   const handleLogin = () => {
@@ -151,21 +132,73 @@ function PaginaProfissionais() {
   };
 
   // Atualizar status do usuário logado
-  const handleSalvarStatus = () => {
-    if (!novoStatus) {
-      abrirSnackbar("Selecione um status válido.", "warning");
-      return;
-    }
+  const handleSalvarStatus = async () => {
+  if (!novoStatus) {
+    abrirSnackbar("Selecione um status válido.", "warning");
+    return;
+  }
 
-    setProfissionais((prev) =>
-      prev.map((p) =>
+  try {
+    const response = await fetch(`http://localhost:5000/api/profissionais/${usuarioLogado.id}/status`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status: novoStatus }),
+    });
+
+    if (!response.ok) throw new Error('Erro ao atualizar status');
+
+    const data = await response.json();
+
+    setProfissionais(prev =>
+      prev.map(p =>
         p.id === usuarioLogado.id ? { ...p, status: novoStatus } : p
       )
     );
 
-    setUsuarioLogado((prev) => ({ ...prev, status: novoStatus }));
+    setUsuarioLogado(prev => ({ ...prev, status: novoStatus }));
+
     abrirSnackbar("Status atualizado com sucesso!", "success");
-  };
+  } catch (error) {
+    abrirSnackbar("Erro ao atualizar status.", "error");
+    console.error(error);
+  }
+};
+
+// Função para trocar a foto do usuário logado
+const handleFotoChange = async (event) => {
+  const arquivo = event.target.files[0];
+  if (!arquivo) return;
+
+  const formData = new FormData();
+  formData.append("foto", arquivo);
+
+  try {
+    const response = await fetch(`http://localhost:5000/api/profissionais/${usuarioLogado.id}/foto`, {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!response.ok) throw new Error("Erro ao enviar foto");
+
+    const data = await response.json();
+
+    // Atualiza foto no estado com o nome retornado do backend
+    // Supondo que sua API retorne o nome da foto para construir a URL depois
+    const urlFoto = `/uploads/${data.foto}`;
+
+    setUsuarioLogado((prev) => ({ ...prev, foto: urlFoto }));
+    setProfissionais((prev) =>
+      prev.map((p) => (p.id === usuarioLogado.id ? { ...p, foto: urlFoto } : p))
+    );
+
+    abrirSnackbar("Foto atualizada com sucesso no servidor", "success");
+  } catch (error) {
+    abrirSnackbar("Erro ao enviar foto", "error");
+  }
+};
+
+
+
 
   return (
     <div
@@ -299,6 +332,19 @@ function PaginaProfissionais() {
               Sair
             </Button>
           </Stack>
+          <Button
+            variant="outlined"
+            component="label"
+            sx={{ mt: 1, width: "100%" }}
+          >
+            Trocar Foto
+            <input
+              type="file"
+              accept="image/*"
+              hidden
+              onChange={handleFotoChange}
+            />
+          </Button>
         </Stack>
       )}
 
@@ -389,11 +435,10 @@ function PaginaProfissionais() {
                       fontWeight: "bold",
                     }}
                   >
-                {item.telefone.replace(
-                  /^(\d{2})(\d{5})(\d{4})$/,
-                  "($1) $2-$3"
-                )}
-              </Typography>
+                    {item.telefone
+                      ? item.telefone.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3")
+                      : ""}
+                  </Typography>
             </Stack>
 
             <Stack direction="row" alignItems="center" spacing={1}>
