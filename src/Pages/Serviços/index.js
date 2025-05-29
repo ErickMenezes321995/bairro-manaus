@@ -182,13 +182,14 @@ const handleFotoChange = async (event) => {
 
     const data = await response.json();
 
-    // Atualiza foto no estado com o nome retornado do backend
-    // Supondo que sua API retorne o nome da foto para construir a URL depois
-    const urlFoto = `/uploads/${data.foto}`;
+    // Adiciona timestamp para evitar cache
+    const urlFoto = `/uploads/${data.foto}?t=${new Date().getTime()}`;
+
+    const idUsuario = usuarioLogado.id;
 
     setUsuarioLogado((prev) => ({ ...prev, foto: urlFoto }));
     setProfissionais((prev) =>
-      prev.map((p) => (p.id === usuarioLogado.id ? { ...p, foto: urlFoto } : p))
+      prev.map((p) => (p.id === idUsuario ? { ...p, foto: urlFoto } : p))
     );
 
     abrirSnackbar("Foto atualizada com sucesso no servidor", "success");
@@ -196,8 +197,6 @@ const handleFotoChange = async (event) => {
     abrirSnackbar("Erro ao enviar foto", "error");
   }
 };
-
-
 
 
   return (

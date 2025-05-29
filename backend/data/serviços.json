@@ -5,8 +5,8 @@
     "servico": "Pedreiro",
     "telefone": "9299999999",
     "localizacao": "https://maps.google.com?q=Bairro+Central",
-    "status": "offline",
-    "foto": "/uploads/profissional-1-1748404917438.jpeg"
+    "status": "online",
+    "foto": "/uploads/profissional-1-1748483939519.png"
   },
   {
     "id": 2,
@@ -14,8 +14,8 @@
     "servico": "Costureira",
     "telefone": "92999887766",
     "localizacao": "https://maps.google.com?q=Bairro+Alvorada",
-    "status": "ocupado",
-    "foto": "/uploads/profissional-2-1748404837284.png"
+    "status": "online",
+    "foto": "/uploads/profissional-2-1748484250659.png"
   },
   {
     "id": 3,
