@@ -23,8 +23,8 @@
     "servico": "Eletricista",
     "telefone": "92999776655",
     "localizacao": "https://maps.google.com?q=Bairro+São+José",
-    "status": "offline",
-    "foto": "/uploads/profissional-3-1748404876290.png"
+    "status": "ocupado",
+    "foto": "/uploads/profissional-3-1748560234448.png"
   },
   {
     "id": 4,
@@ -32,7 +32,7 @@
     "servico": "Babá",
     "telefone": "92999665544",
     "localizacao": "https://maps.google.com?q=Bairro+Cidade+Nova",
-    "status": "online",
+    "status": "offline",
     "foto": "https://i.pravatar.cc/150?img=4"
   },
   {
@@ -77,7 +77,7 @@
     "servico": "Encanador",
     "telefone": "92999110099",
     "localizacao": "https://maps.google.com?q=Bairro+Flores",
-    "status": "online",
+    "status": "ocupado",
     "foto": "https://i.pravatar.cc/150?img=9"
   },
   {
@@ -122,7 +122,7 @@
     "servico": "Cabeleireira",
     "telefone": "92998554433",
     "localizacao": "https://maps.google.com?q=Bairro+Praça+14",
-    "status": "online",
+    "status": "offline",
     "foto": "https://i.pravatar.cc/150?img=14"
   },
   {
