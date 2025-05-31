@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from "react"; 
 import {
   Card,
   CardContent,
@@ -23,14 +23,13 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-
 import dadosComercios from "./comercios.json";
 
-
 function Comercio() {
-  const [Busca, setBusca] = useState("");
+  const [busca, setBusca] = useState("");
   const [imagemSelecionada, setImagemSelecionada] = useState(null);
   const [modalAberto, setModalAberto] = useState(false);
+  const [filtro, setFiltro] = useState(null);
 
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -47,37 +46,33 @@ function Comercio() {
   };
 
   const fecharModalImagem = () => {
-    setModalAberto(false);
     setImagemSelecionada(null);
+    setModalAberto(false);
   };
 
-  const [mercadinhos] = useState(dadosComercios.mercadinhos);
-  const [lanchonetes] = useState(dadosComercios.lanchonetes);
-  const [farmacias] = useState(dadosComercios.farmacias);
-  const [saloes] = useState(dadosComercios.saloes);
-  const [igrejas] = useState(dadosComercios.igrejas);
-  const [escolas] = useState(dadosComercios.escolas);
+  const categorias = {
+    mercadinhos: dadosComercios.mercadinhos || [],
+    lanchonetes: dadosComercios.lanchonetes || [],
+    farmacias: dadosComercios.farmacias || [],
+    saloes: dadosComercios.saloes || [],
+    igrejas: dadosComercios.igrejas || [],
+    escolas: dadosComercios.escolas || [],
+  };
 
-  const comerciosFiltrados = [
-    ...mercadinhos,
-    ...lanchonetes,
-    ...farmacias,
-    ...saloes,
-    ...igrejas,
-    ...escolas,
-  ].filter((item) => item.nome.toLowerCase().includes(Busca.toLowerCase()));
+  const todosComercios = Object.values(categorias).flat();
 
+  // Filtra com base na busca por nome (independente da categoria/filtro)
+  const comerciosFiltrados = todosComercios.filter((item) =>
+    item.nome.toLowerCase().includes(busca.toLowerCase())
+  );
+
+  // Renderiza os cards em grid, com título opcional
   const renderComercios = (titulo, lista) => (
     <>
       {titulo && (
         <Typography
           variant="h5"
-          sx={{
-            mt: 6,
-            mb: 2,
-            fontWeight: "bold",
-            textAlign: "center",
-          }}
+          sx={{ mt: 6, mb: 2, fontWeight: "bold", textAlign: "center" }}
         >
           {titulo}
         </Typography>
@@ -125,7 +120,7 @@ function Comercio() {
                   <LocalShippingIcon fontSize="small" /> {item.entrega}
                 </Typography>
 
-                 {item.localizacao && (
+                {item.localizacao && (
                   <Typography
                     variant="body2"
                     color="text.secondary"
@@ -136,17 +131,12 @@ function Comercio() {
                     <LocationOnIcon
                       fontSize="small"
                       sx={{ mr: 0.5, verticalAlign: "middle" }}
-                    />{" "}
+                    />
                     Localização
                   </Typography>
                 )}
 
-                <Stack
-                  mt={3}
-                  direction="column"
-                  spacing={1}
-                  alignItems="stretch"
-                >
+                <Stack mt={3} spacing={1}>
                   <Button
                     fullWidth
                     variant="contained"
@@ -156,7 +146,6 @@ function Comercio() {
                   >
                     WhatsApp
                   </Button>
-
                   {item.imagem && (
                     <Button
                       fullWidth
@@ -176,12 +165,19 @@ function Comercio() {
     </>
   );
 
+  const tituloCategoria = {
+    mercadinhos: "🛒 Mercadinhos",
+    lanchonetes: "🍔 Lanchonetes",
+    farmacias: "💊 Farmácias",
+    saloes: "✂️ Salões de Beleza",
+    igrejas: "⛪ Igrejas",
+    escolas: "🏫 Escolas",
+  };
+
   return (
     <div
       style={{
-        padding: "2rem",
-        paddingLeft: "1rem",
-        paddingRight: "1rem",
+        padding: "2rem 1rem",
         backgroundColor: "#f9fafb",
         minHeight: "100vh",
       }}
@@ -193,12 +189,7 @@ function Comercio() {
         sx={{
           fontWeight: "bold",
           mb: 4,
-          fontSize: {
-            xs: "1.3rem",
-            sm: "2rem",
-            md: "2.5rem",
-            lg: "2.5rem",
-          },
+          fontSize: { xs: "1.3rem", sm: "2rem", md: "2.5rem" },
           maxWidth: "900px",
           margin: "0 auto",
           px: 2,
@@ -207,45 +198,58 @@ function Comercio() {
         🏘️ Guia de Comércios e Serviços da Colônia Santo Antônio!
       </Typography>
 
+      {/* Filtros */}
       <Stack
-        direction="row"
+        direction={{ xs: "column", sm: "row" }}
+        spacing={1}
         justifyContent="center"
-        mb={4}
-        px={{ xs: 2, sm: 0 }}
-        sx={{ marginTop: "8px" }}
+        alignItems="center"
+        flexWrap="wrap"
+        mb={2}
       >
+        {["Todos", ...Object.keys(categorias)].map((cat) => (
+          <Button
+            key={cat}
+            fullWidth
+            variant={
+              filtro === (cat === "Todos" ? null : cat) ? "contained" : "outlined"
+            }
+            onClick={() => setFiltro(cat === "Todos" ? null : cat)}
+          >
+            {cat === "Todos" ? "Todos" : tituloCategoria[cat]}
+          </Button>
+        ))}
+      </Stack>
+
+      {/* Busca */}
+      <Stack direction="row" justifyContent="center" mb={4} px={{ xs: 2, sm: 0 }}>
         <TextField
           label="Buscar por nome"
           variant="outlined"
-          value={Busca}
+          value={busca}
           onChange={(e) => setBusca(e.target.value)}
           sx={{ width: "100%", maxWidth: 400 }}
         />
       </Stack>
 
-      {Busca.trim()
-        ? renderComercios("", comerciosFiltrados)
-        : (
-          <>
-            {renderComercios("🛒 Mercadinhos", mercadinhos)}
-            {renderComercios("🍔 Lanchonetes", lanchonetes)}
-            {renderComercios("💊 Farmácias", farmacias)}
-            {renderComercios("✂️ Salões de Beleza", saloes)}
-            {renderComercios("⛪ Igrejas", igrejas)}
-            {renderComercios("🏫 Escolas", escolas)}
-          </>
-        )}
+      {/* Lista */}
+      {busca.trim() ? (
+        // Se tem busca, mostra todos que bateram na busca, sem título, em grid
+        renderComercios("", comerciosFiltrados)
+      ) : filtro ? (
+        // Se tem filtro, mostra só essa categoria em grid
+        renderComercios(tituloCategoria[filtro], categorias[filtro])
+      ) : (
+        // Se não tem filtro nem busca, mostra todas categorias, cada uma em seu grid com título
+        Object.entries(categorias).map(([chave, lista]) =>
+          renderComercios(tituloCategoria[chave], lista)
+        )
+      )}
 
-      {/* Modal de imagem com Dialog */}
-      <Dialog
-        open={modalAberto}
-        onClose={fecharModalImagem}
-        maxWidth="md"
-        fullScreen={fullScreen}
-      >
+      {/* Modal */}
+      <Dialog open={modalAberto} onClose={fecharModalImagem} maxWidth="md" fullScreen={fullScreen}>
         <DialogContent sx={{ position: "relative", p: 0 }}>
           <IconButton
-            aria-label="fechar"
             onClick={fecharModalImagem}
             sx={{
               position: "absolute",
@@ -253,9 +257,7 @@ function Comercio() {
               right: 8,
               color: "white",
               backgroundColor: "rgba(0,0,0,0.4)",
-              "&:hover": {
-                backgroundColor: "rgba(0,0,0,0.6)",
-              },
+              "&:hover": { backgroundColor: "rgba(0,0,0,0.6)" },
             }}
           >
             <CloseIcon />
@@ -281,6 +283,7 @@ function Comercio() {
 }
 
 export default Comercio;
+
 
 
 
