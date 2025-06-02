@@ -1,4 +1,4 @@
-import React, { useState } from "react"; 
+import React, { useState } from "react";
 import {
   Card,
   CardContent,
@@ -14,6 +14,7 @@ import {
   IconButton,
   useTheme,
   useMediaQuery,
+  Collapse,
 } from "@mui/material";
 
 import CloseIcon from "@mui/icons-material/Close";
@@ -30,6 +31,7 @@ function Comercio() {
   const [imagemSelecionada, setImagemSelecionada] = useState(null);
   const [modalAberto, setModalAberto] = useState(false);
   const [filtro, setFiltro] = useState(null);
+  const [abertos, setAbertos] = useState({});
 
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -60,109 +62,8 @@ function Comercio() {
   };
 
   const todosComercios = Object.values(categorias).flat();
-
-  // Filtra com base na busca por nome (independente da categoria/filtro)
   const comerciosFiltrados = todosComercios.filter((item) =>
     item.nome.toLowerCase().includes(busca.toLowerCase())
-  );
-
-  // Renderiza os cards em grid, com título opcional
-  const renderComercios = (titulo, lista) => (
-    <>
-      {titulo && (
-        <Typography
-          variant="h5"
-          sx={{ mt: 6, mb: 2, fontWeight: "bold", textAlign: "center" }}
-        >
-          {titulo}
-        </Typography>
-      )}
-
-      <Grid container spacing={3} justifyContent="center">
-        {lista.map((item, index) => (
-          <Grid
-            item
-            xs={12}
-            sm={6}
-            md={4}
-            key={index}
-            sx={{ display: "flex", justifyContent: "center" }}
-          >
-            <Card
-              sx={{
-                width: 300,
-                height: 320,
-                borderRadius: 3,
-                boxShadow: 3,
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                p: 1,
-              }}
-            >
-              <CardHeader
-                avatar={
-                  <Avatar sx={{ bgcolor: "#25D366" }}>
-                    <StoreIcon />
-                  </Avatar>
-                }
-                title={item.nome}
-                subheader="Comércio local"
-              />
-              <CardContent sx={{ flexGrow: 1 }}>
-                <Typography variant="body2" color="text.secondary" gutterBottom>
-                  <PhoneIcon fontSize="small" /> {item.numero}
-                </Typography>
-                <Typography variant="body2" color="text.secondary" gutterBottom>
-                  <AccessTimeIcon fontSize="small" /> {item.horario}
-                </Typography>
-                <Typography variant="body2" color="text.secondary" gutterBottom>
-                  <LocalShippingIcon fontSize="small" /> {item.entrega}
-                </Typography>
-
-                {item.localizacao && (
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    gutterBottom
-                    sx={{ cursor: "pointer", textDecoration: "underline" }}
-                    onClick={() => window.open(item.localizacao, "_blank")}
-                  >
-                    <LocationOnIcon
-                      fontSize="small"
-                      sx={{ mr: 0.5, verticalAlign: "middle" }}
-                    />
-                    Localização
-                  </Typography>
-                )}
-
-                <Stack mt={3} spacing={1}>
-                  <Button
-                    fullWidth
-                    variant="contained"
-                    color="success"
-                    startIcon={<WhatsAppIcon />}
-                    onClick={() => openWhatsApp(item.numero, item.nome)}
-                  >
-                    WhatsApp
-                  </Button>
-                  {item.imagem && (
-                    <Button
-                      fullWidth
-                      variant="outlined"
-                      color="primary"
-                      onClick={() => abrirModalImagem(item.imagem)}
-                    >
-                      Ver Panfleto
-                    </Button>
-                  )}
-                </Stack>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
-    </>
   );
 
   const tituloCategoria = {
@@ -174,14 +75,132 @@ function Comercio() {
     escolas: "🏫 Escolas",
   };
 
+  const toggleCategoria = (cat) => {
+    setAbertos((prev) => ({ ...prev, [cat]: !prev[cat] }));
+  };
+
+  const renderCategoriaComBotao = (chave, lista) => (
+    <div key={chave} style={{ marginBottom: "2rem" }}>
+       <Stack
+          direction="row"
+          justifyContent="center"
+          mb={2}
+          px={2}
+        >
+          <Button
+            variant="contained"
+            onClick={() => toggleCategoria(chave)}
+            sx={{
+              width: { xs: "100%", sm: "80%", md: "60%", lg: "50%" },
+              textAlign: "left",
+              justifyContent: "flex-start",
+              py: 1.5,
+            }}
+          >
+            {tituloCategoria[chave]}
+          </Button>
+        </Stack>
+      <Collapse in={abertos[chave] || false} timeout="auto" unmountOnExit>
+        <Grid container spacing={3} justifyContent="center" mt={2}>
+          {lista.map((item, index) => (
+            <Grid item xs={12} sm={6} md={4} key={index}>
+            <Card
+                sx={{
+                  width: 300,          // largura fixa
+                  height: 340,         // altura fixa
+                  borderRadius: 3,
+                  boxShadow: 3,
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  p: 2,
+                  backgroundColor: "#fff",
+                  overflow: "hidden",  // evita que o card cresça além do tamanho
+                }}
+              >
+                <CardHeader
+                  avatar={
+                    <Avatar sx={{ bgcolor: "#25D366" }}>
+                      <StoreIcon />
+                    </Avatar>
+                  }
+                  title={
+                    <Typography
+                      variant="h6"
+                      noWrap
+                      sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
+                      title={item.nome}
+                    >
+                      {item.nome}
+                    </Typography>
+                  }
+                  subheader="Comércio local"
+                  sx={{ pb: 1 }}
+                />
+
+                <CardContent
+                  sx={{
+                    flexGrow: 1,
+                    overflowY: "auto",   // faz o conteúdo rolar verticalmente se for maior que o espaço
+                    paddingRight: 1,     // espaço para scrollbar
+                  }}
+                >
+                  <Typography variant="body2" color="text.secondary" gutterBottom>
+                    <PhoneIcon fontSize="small" sx={{ mr: 0.5 }} /> {item.numero}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" gutterBottom>
+                    <AccessTimeIcon fontSize="small" sx={{ mr: 0.5 }} /> {item.horario}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" gutterBottom>
+                    <LocalShippingIcon fontSize="small" sx={{ mr: 0.5 }} /> {item.entrega}
+                  </Typography>
+                  {item.localizacao && (
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      gutterBottom
+                      sx={{ cursor: "pointer", textDecoration: "underline" }}
+                      onClick={() => window.open(item.localizacao, "_blank")}
+                    >
+                      <LocationOnIcon fontSize="small" sx={{ mr: 0.5 }} />
+                      Localização
+                    </Typography>
+                  )}
+                </CardContent>
+
+                <Stack spacing={1} mt={1}>
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    color="success"
+                    startIcon={<WhatsAppIcon />}
+                    sx={{ height: 40 }}
+                    onClick={() => openWhatsApp(item.numero, item.nome)}
+                  >
+                    WhatsApp
+                  </Button>
+                  {item.imagem && (
+                    <Button
+                      fullWidth
+                      variant="outlined"
+                      color="primary"
+                      sx={{ height: 40 }}
+                      onClick={() => abrirModalImagem(item.imagem)}
+                    >
+                      Ver Panfleto
+                    </Button>
+                  )}
+                </Stack>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </Collapse>
+    </div>
+  );
+
   return (
-    <div
-      style={{
-        padding: "2rem 1rem",
-        backgroundColor: "#f9fafb",
-        minHeight: "100vh",
-      }}
-    >
+    <div style={{ padding: "2rem 1rem", backgroundColor: "#f9fafb", minHeight: "100vh" }}>
       <Typography
         variant="h4"
         align="center"
@@ -195,7 +214,7 @@ function Comercio() {
           px: 2,
         }}
       >
-        🏘️ Guia de Comércios e Serviços da Colônia Santo Antônio!
+        🏘️ Guia de Comércios do Bairro!
       </Typography>
 
       {/* Filtros */}
@@ -206,43 +225,18 @@ function Comercio() {
         alignItems="center"
         flexWrap="wrap"
         mb={2}
+        marginTop="25px"
       >
-        {["Todos", ...Object.keys(categorias)].map((cat) => (
-          <Button
-            key={cat}
-            fullWidth
-            variant={
-              filtro === (cat === "Todos" ? null : cat) ? "contained" : "outlined"
-            }
-            onClick={() => setFiltro(cat === "Todos" ? null : cat)}
-          >
-            {cat === "Todos" ? "Todos" : tituloCategoria[cat]}
-          </Button>
-        ))}
-      </Stack>
-
-      {/* Busca */}
-      <Stack direction="row" justifyContent="center" mb={4} px={{ xs: 2, sm: 0 }}>
-        <TextField
-          label="Buscar por nome"
-          variant="outlined"
-          value={busca}
-          onChange={(e) => setBusca(e.target.value)}
-          sx={{ width: "100%", maxWidth: 400 }}
-        />
       </Stack>
 
       {/* Lista */}
       {busca.trim() ? (
-        // Se tem busca, mostra todos que bateram na busca, sem título, em grid
-        renderComercios("", comerciosFiltrados)
+        renderCategoriaComBotao("Busca", comerciosFiltrados)
       ) : filtro ? (
-        // Se tem filtro, mostra só essa categoria em grid
-        renderComercios(tituloCategoria[filtro], categorias[filtro])
+        renderCategoriaComBotao(filtro, categorias[filtro])
       ) : (
-        // Se não tem filtro nem busca, mostra todas categorias, cada uma em seu grid com título
         Object.entries(categorias).map(([chave, lista]) =>
-          renderComercios(tituloCategoria[chave], lista)
+          renderCategoriaComBotao(chave, lista)
         )
       )}
 
@@ -267,12 +261,7 @@ function Comercio() {
               <img
                 src={imagemSelecionada}
                 alt="Panfleto"
-                style={{
-                  width: "100%",
-                  height: "auto",
-                  display: "block",
-                  maxWidth: "100%",
-                }}
+                style={{ width: "100%", height: "auto", display: "block" }}
               />
             </div>
           )}
@@ -283,13 +272,3 @@ function Comercio() {
 }
 
 export default Comercio;
-
-
-
-
-
-
-
-
-
-
