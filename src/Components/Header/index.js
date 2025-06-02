@@ -19,7 +19,7 @@ import GroupIcon from '@mui/icons-material/Group';
 import BuildIcon from '@mui/icons-material/Build';
 import ArticleIcon from '@mui/icons-material/Article';
 import InfoIcon from '@mui/icons-material/Info';
-import Logo from "../../imgs/1projeto.png";
+import Logo from "../../imgs/manausconectada.png";
 
 const Navigation = () => {
   const theme = useTheme();
@@ -32,13 +32,18 @@ const Navigation = () => {
     { label: 'Comissão', to: '/contato', icon: <GroupIcon /> },
     { label: 'Serviços', to: '/serviços', icon: <BuildIcon /> },
     { label: 'Notícias', to: '/informações', icon: <ArticleIcon /> },
-    { label: 'Sobre', to: '/sobre', icon: <InfoIcon /> },
   ];
 
   return (
     <>
       {/* AppBar */}
-      <AppBar position="sticky" sx={{ backgroundColor: theme.palette.info.main }}>
+            <AppBar 
+          position="sticky" 
+          sx={{ 
+            backgroundColor: theme.palette.info.main,
+            display: { xs: 'none', sm: 'block' }  // <<< OCULTA EM MOBILE
+          }}
+        >
         <Container maxWidth="lg">
           <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             {/* Logo no desktop */}
@@ -52,29 +57,6 @@ const Navigation = () => {
               </Link>
             </Typography>
 
-            {/* Logo no mobile */}
-          <Box
-              sx={{
-                display: { xs: 'flex', sm: 'none' },
-                flexGrow: 1,
-                justifyContent: 'flex-start', // alinha à esquerda
-                alignItems: 'center',
-                gap: 1, // espaço entre texto e imagem
-                flexDirection: 'row', // texto à esquerda, imagem à direita
-              }}
-            >
-              <img
-                src={Logo} // Substitua pelo caminho real da imagem
-                alt="Neighborly Logo"
-                style={{ height: 50, objectFit: 'contain', borderRadius:"20px" }}
-              />
-              <Typography variant="h5" component="span"
-              style={{fontFamily:"sans-serif", color:"black", }}
-              >
-              Neighborly
-              </Typography>
-            
-            </Box>
 
             {/* Menu Desktop */}
             <Box sx={{ display: { xs: 'none', sm: 'flex' }, gap: 2 }}>
@@ -95,7 +77,7 @@ const Navigation = () => {
       </AppBar>
 
       {/* Bottom Navigation só em mobile */}
-      <Paper
+        <Paper
         sx={{
           position: 'fixed',
           bottom: 0,
@@ -103,10 +85,28 @@ const Navigation = () => {
           right: 0,
           display: { xs: 'flex', sm: 'none' },
           zIndex: 1300,
+          borderTop: '1px solid #ccc',
+          backgroundColor: '#f5f5f5', // cinza claro
         }}
-        elevation={3}
+        elevation={8}
       >
-        <BottomNavigation showLabels value={currentPath}>
+        <BottomNavigation
+          showLabels
+          value={currentPath}
+          sx={{
+            width: '100%',
+            '& .Mui-selected': {
+              color: '#1976d2',
+            },
+            '& .MuiBottomNavigationAction-root': {
+              minWidth: 'auto',
+              padding: '6px 12px',
+            },
+            '& .MuiBottomNavigationAction-label': {
+              fontSize: '0.75rem',
+            },
+          }}
+        >
           {menuItems.map(({ label, to, icon }) => (
             <BottomNavigationAction
               key={label}
@@ -115,6 +115,14 @@ const Navigation = () => {
               icon={icon}
               component={Link}
               to={to}
+              sx={{
+                color: currentPath === to ? '#1976d2' : '#555',
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  backgroundColor: 'rgba(25, 118, 210, 0.1)',
+                  borderRadius: '12px',
+                },
+              }}
             />
           ))}
         </BottomNavigation>

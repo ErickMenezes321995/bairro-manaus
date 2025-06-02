@@ -99,25 +99,56 @@ function Home() {
             <div className="todos">
               <div className="primeira">
                 <Container maxWidth="md" sx={{ mt: 4 }}>
-                  {nomeUsuario && (
-                    <Typography
-                      key={nomeUsuario}  
-                      variant="h5"
-                      gutterBottom
-                      sx={{ fontSize: { xs: "1rem", sm: "2rem" }, textAlign:"center"}}
-                    >
-                      Olá, {nomeUsuario}! Bem-vindo à Comunidade Manaus Conectada!
-                    </Typography>
-                  )}
-
-
+                 {nomeUsuario && (
                   <Typography
+                    key={nomeUsuario}
+                    variant="h5"
+                    gutterBottom
+                    bgcolor="white"
+                    width="100%"
+                    sx={{
+                      fontSize: { xs: "1.2rem", sm: "1.8rem", md: "2rem" },
+                      textAlign: "center",
+                      color: "black",
+                      py: { xs: 1.5, sm: 2 },
+                      px: 2,
+                      borderRadius: 2,
+                      boxShadow: 3,
+                      lineHeight: 1.4,
+                    }}
+                  >
+                    Olá, {nomeUsuario}! 👋 <br />
+                    Bem-vindo à <strong>Manaus Conectada</strong> — o app que fortalece o seu bairro!
+                  </Typography>
+                )}
+
+
+                <div style={{ marginTop: "20px" }}>
+                  <MarkVip />
+                </div>
+
+                {isDesktop && (
+                  <div style={{ marginTop: "20px" }}>
+                    <Importantes />
+                  </div>
+                )}
+                 </Container>               
+              </div>
+
+              <div className="segunda">
+                <Typography variant="h5" gutterBottom>
+                  Últimas Notícias de Manaus
+                </Typography>
+                <Noticia />
+
+                 <Typography
                     variant="body1"
                     sx={{
                       mb: { xs: 2, sm: 4 },
                       fontSize: { xs: "1rem", sm: "1.125rem" },
                       lineHeight: 1.6,
-                      textAlign:"center"
+                      textAlign:"center",
+                      marginTop:"25px"
                     }}
                   >
                     Compartilhe aqui!!
@@ -136,7 +167,7 @@ function Home() {
                       )}
                     </Box>
                   </Fade>
-                </Container>
+               
 
                 <TextField
                   fullWidth
@@ -161,27 +192,6 @@ function Home() {
                 <Button fullWidth variant="contained" onClick={handleSubmit}>
                   Enviar
                 </Button>
-
-                <div style={{ marginTop: "20px" }}>
-                  <Calendario />
-                </div>
-
-                <div style={{ marginTop: "20px" }}>
-                  <MarkVip />
-                </div>
-
-                {isDesktop && (
-                  <div style={{ marginTop: "20px" }}>
-                    <Importantes />
-                  </div>
-                )}
-              </div>
-
-              <div className="segunda">
-                <Typography variant="h5" gutterBottom>
-                  Últimas Notícias de Manaus
-                </Typography>
-                <Noticia />
               </div>
             </div>
           </Grid>
